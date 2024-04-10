@@ -1,17 +1,39 @@
 import imageProduct1 from "../assets/images/image-product-1.jpg";
-// import imageProduct2 from "../assets/images/image-product-2.jpg";
-// import imageProduct3 from "../assets/images/image-product-3.jpg";
-// import imageProduct4 from "../assets/images/image-product-4.jpg";
+import imageProduct2 from "../assets/images/image-product-2.jpg";
+import imageProduct3 from "../assets/images/image-product-3.jpg";
+import imageProduct4 from "../assets/images/image-product-4.jpg";
 import thumbnail1 from "../assets/images/image-product-1-thumbnail.jpg";
 import thumbnail2 from "../assets/images/image-product-2-thumbnail.jpg";
 import thumbnail3 from "../assets/images/image-product-3-thumbnail.jpg";
 import thumbnail4 from "../assets/images/image-product-4-thumbnail.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { useContext, useState} from "react";
+import { AmountContext} from "../AmountContext";
+import { AddToCartContext } from "../AddToCartContext";
 
 
 const ProductDisplay = () => {
+   const {addToCart} = useContext(AddToCartContext);
     const companyName="SNEAKERS PLUG COMPANY";
+    const {amount, setAmount} = useContext(AmountContext);
+    // Initialize main image with the first thumbnail image
+    const [mainImage, setMainImage] = useState(imageProduct1); 
+
+    // Function to handle thumbnail click
+    const handleThumbnailClick = (image) => {
+       // Update the main image with the clicked thumbnail image
+      setMainImage(image);
+    };
+  
+    const handleIncrease = () => {
+      setAmount(amount + 1);
+    };
+    const handleDecrease = () => {
+        if (amount > 0) {
+          setAmount(amount - 1);
+        }
+    };
     
   return (
     <div>
@@ -19,13 +41,13 @@ const ProductDisplay = () => {
         {/* JSX responsible for holding the main image and the thumbnail*/}
         <div className="product-image">
         <div className="product-main-image">
-            <img src={imageProduct1} alt="" />
+            <img src={mainImage} alt="" />
         </div>
         <div className="product-thumbnails">
-            <div className="product-thumbnail"><img src={thumbnail1} alt="" /></div>
-            <div className="product-thumbnail"><img src={thumbnail2} alt="" /></div>
-            <div className="product-thumbnail"><img src={thumbnail3} alt="" /></div>
-            <div className="product-thumbnail"><img src={thumbnail4} alt="" /></div>
+            <div className="product-thumbnail"><img src={thumbnail1} alt="" onClick={()=>handleThumbnailClick(imageProduct1)}/></div>
+            <div className="product-thumbnail"><img src={thumbnail2} alt="" onClick={() => handleThumbnailClick(imageProduct2)}/></div>
+            <div className="product-thumbnail"><img src={thumbnail3} alt="" onClick={() => handleThumbnailClick(imageProduct3)}/></div>
+            <div className="product-thumbnail"><img src={thumbnail4} alt="" onClick={() => handleThumbnailClick(imageProduct4)}/></div>
         </div>
         </div>
         {/* JSX responsible for holding the product details*/}
@@ -45,11 +67,11 @@ const ProductDisplay = () => {
 
                   <div className="cart-button">
                     <div className="quantity-buttons">
-                    <button>-</button>
-                    <p>0</p>
-                    <button>+</button>
+                    <button onClick={handleDecrease}>-</button>
+                    <p>{amount}</p>
+                    <button onClick={handleIncrease}>+</button>
                     </div>
-                  <button className="add-to-cart">
+                  <button className="add-to-cart" onClick={amount > 0 ? addToCart : null}>
                     <div className="add-cart-icon">
                     <FontAwesomeIcon icon={faShoppingCart} />
                     </div>
