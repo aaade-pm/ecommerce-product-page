@@ -5,11 +5,13 @@ import CartList from './CartList';
 import { OpenCartContext } from '../OpenCartContext';
 import { useContext } from 'react';
 import { AmountContext } from '../AmountContext';
+import { AddToCartContext } from '../AddToCartContext';
 
     const Header = () => {
         {/** Import the OpenCartContext and AmountContext to access the values of isCartOpen and amount and function of showcart **/}
         const {amount} = useContext(AmountContext);
         const {showCart, isCartOpen} = useContext(OpenCartContext);
+        const {isAddedToCart} = useContext(AddToCartContext);
         return (
             <>
                 <header>
@@ -31,10 +33,10 @@ import { AmountContext } from '../AmountContext';
                     <div className="user-and-cart">
                         <div className="cart" >
                             {/** Display the cart count only when the amount is greater than 0 */}
-                            {amount > 0 &&                
+                            {amount > 0 && isAddedToCart?               
                             <div className="cart-count">
                                 <p>{amount}</p>
-                            </div>
+                            </div> : null
                             }
                             {/** Onclick it toggles the value of isCartOpen to display CartList component or not **/}
                             <img src={iconCart} alt="cart icon" onClick={showCart}/>

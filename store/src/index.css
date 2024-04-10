@@ -401,4 +401,15 @@ nav ul li a:hover {
   color: var(--Dark-grayish-blue);
 }
 
+/* media queries */
+@media screen and (max-width: 480px) {
+  nav ul{
+    display: none;
+  }
+
+  .product-thumbnails{
+    display: none;
+  }
+}
+
 

@@ -1,7 +1,7 @@
 import {createContext} from 'react'
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { AmountContext } from "../AmountContext";
+import { AmountContext } from "./AmountContext";
 import { AddToCartContext } from "./AddToCartContext";
 
 const RemoveCartContext = createContext()
