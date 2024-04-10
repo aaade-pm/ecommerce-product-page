@@ -6,16 +6,33 @@ import { OpenCartContext } from '../OpenCartContext';
 import { useContext } from 'react';
 import { AmountContext } from '../AmountContext';
 import { AddToCartContext } from '../AddToCartContext';
+import { MenuContext } from '../MenuContext';
+import MobileNav from './MobileNav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 
     const Header = () => {
         {/** Import the OpenCartContext and AmountContext to access the values of isCartOpen and amount and function of showcart **/}
         const {amount} = useContext(AmountContext);
         const {showCart, isCartOpen} = useContext(OpenCartContext);
         const {isAddedToCart} = useContext(AddToCartContext);
+        const {isMenuOpen, openMenu, closeMenu} = useContext(MenuContext);
+
         return (
             <>
                 <header>
+                <div className="menu-bar" onClick={openMenu}>
+                        <FontAwesomeIcon icon={faBars} />
+                </div>
+
+                    {/** Display the mobile menu only when isMenuOpen is true **/}
+                    {isMenuOpen &&  
+                    <MobileNav openMenu={openMenu} closeMenu={closeMenu} />                   
+                    }
+                    {/** Display the desktop menu **/}
                     <div className="logo-and-nav-links">
+
                         <div className="logo">
                             <img src={logo} alt="Logo for sneakers store" />
                         </div>

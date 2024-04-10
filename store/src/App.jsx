@@ -1,5 +1,6 @@
 import { AddToCartProvider } from './AddToCartContext';
 import { AmountProvider } from './AmountContext';
+import { MenuProvider } from './MenuContext';
 import { OpenCartProvider } from './OpenCartContext';
 import { RemoveCartProvider } from './RemoveCartContext';
 import { TotalProvider } from './TotalContext';
@@ -14,8 +15,10 @@ function App() {
         <OpenCartProvider>
           <AddToCartProvider>
             <RemoveCartProvider>
+              <MenuProvider>
           <Header/>
           <ProductDisplay />
+          </MenuProvider>
           </RemoveCartProvider>          
           </AddToCartProvider>
           </OpenCartProvider>
